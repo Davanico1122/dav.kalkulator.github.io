@@ -2,99 +2,63 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Kalkulator Login</title>
+  <title>Login Kalkulator</title>
   <style>
     body {
-      font-family: Arial;
-      background-color: #1c1c1c;
-      color: #fff;
+      font-family: sans-serif;
+      background: linear-gradient(120deg, #2c3e50, #3498db);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      margin: 0;
+    }
+    .container {
+      background: rgba(0,0,0,0.6);
+      padding: 30px;
+      border-radius: 12px;
       text-align: center;
-      padding-top: 80px;
-    }
-    #login-box, #calculator {
-      background: #333;
-      padding: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
       width: 300px;
-      margin: auto;
-      border-radius: 10px;
-      display: none;
     }
-    input[type="text"] {
+    input {
       width: 90%;
       padding: 10px;
-      margin: 10px 0;
+      margin: 15px 0;
+      border-radius: 8px;
       border: none;
-      border-radius: 5px;
+      font-size: 16px;
     }
     button {
       padding: 10px 20px;
-      background: #09f;
+      background: #1abc9c;
       border: none;
+      border-radius: 50px;
       color: white;
-      border-radius: 5px;
       cursor: pointer;
-      margin: 5px;
+      font-size: 16px;
     }
-    #login-box { display: block; }
   </style>
 </head>
 <body>
-
-  <div id="login-box">
+  <div class="container">
     <h2>Masukkan Nama</h2>
-    <input type="text" id="username" placeholder="Nama Anda"><br>
-    <button onclick="login()">Masuk</button>
-  </div>
-
-  <div id="calculator">
-    <h2>Kalkulator</h2>
-    <input type="text" id="display" disabled><br><br>
-    <button onclick="append('1')">1</button>
-    <button onclick="append('2')">2</button>
-    <button onclick="append('3')">3</button>
-    <button onclick="append('+')">+</button><br>
-    <button onclick="append('4')">4</button>
-    <button onclick="append('5')">5</button>
-    <button onclick="append('6')">6</button>
-    <button onclick="append('-')">-</button><br>
-    <button onclick="append('7')">7</button>
-    <button onclick="append('8')">8</button>
-    <button onclick="append('9')">9</button>
-    <button onclick="append('*')">*</button><br>
-    <button onclick="append('0')">0</button>
-    <button onclick="clearDisplay()">C</button>
-    <button onclick="calculate()">=</button>
-    <button onclick="append('/')">/</button>
+    <input type="text" id="username" placeholder="Contoh: Arif">
+    <br>
+    <button onclick="masuk()">Masuk</button>
   </div>
 
   <script>
-    function login() {
-      const username = document.getElementById('username').value;
-      if (username.trim() !== "") {
-        document.getElementById('login-box').style.display = 'none';
-        document.getElementById('calculator').style.display = 'block';
+    function masuk() {
+      const name = document.getElementById("username").value.trim();
+      if (name) {
+        localStorage.setItem("username", name);
+        window.location.href = "calculator.html";
       } else {
-        alert("Silakan masukkan nama dulu.");
-      }
-    }
-
-    function append(val) {
-      document.getElementById('display').value += val;
-    }
-
-    function clearDisplay() {
-      document.getElementById('display').value = '';
-    }
-
-    function calculate() {
-      try {
-        const result = eval(document.getElementById('display').value);
-        document.getElementById('display').value = result;
-      } catch {
-        document.getElementById('display').value = 'Error';
+        alert("Nama tidak boleh kosong!");
       }
     }
   </script>
-
 </body>
 </html>
