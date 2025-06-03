@@ -34,7 +34,6 @@
       border: none;
       background-color: #34495e;
       color: white;
-      opacity: 1;
     }
 
     .buttons {
@@ -59,12 +58,27 @@
     }
 
     .clear-btn {
-      background: white;
-      color: black;
+      background: #e74c3c;
     }
 
     .clear-btn:hover {
-      background: #ccc;
+      background: #c0392b;
+    }
+
+    .backspace-btn {
+      background: #f39c12;
+    }
+
+    .backspace-btn:hover {
+      background: #d68910;
+    }
+
+    .equal-btn {
+      background: #2980b9;
+    }
+
+    .equal-btn:hover {
+      background: #1f618d;
     }
   </style>
 </head>
@@ -90,11 +104,13 @@
 
       <button onclick="append('0')">0</button>
       <button onclick="append('.')">.</button>
-      <button onclick="calculate()">=</button>
+      <button class="equal-btn" onclick="calculate()">=</button>
       <button onclick="append('+')">+</button>
 
-      <button onclick="backspace()">⌫</button>
-      <button class="clear-btn" onclick="clearDisplay()" style="grid-column: span 3;">Clear</button>
+      <button class="backspace-btn" onclick="backspace()">⌫</button>
+      <button class="clear-btn" onclick="clearDisplay()">Clear</button>
+      <button style="visibility: hidden;" disabled></button>
+      <button style="visibility: hidden;" disabled></button>
     </div>
   </div>
 
@@ -109,8 +125,7 @@
     }
 
     function append(val) {
-      const display = document.getElementById("display");
-      display.value += val;
+      document.getElementById("display").value += val;
     }
 
     function clearDisplay() {
@@ -125,7 +140,6 @@
     function calculate() {
       const display = document.getElementById("display");
       try {
-        // Sederhana, aman jika hanya input dari tombol
         display.value = Function('"use strict";return (' + display.value + ')')();
       } catch {
         display.value = "Error";
