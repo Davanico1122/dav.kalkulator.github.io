@@ -14,31 +14,38 @@
       margin: 0;
       color: white;
     }
+
     .container {
-      background: rgba(0,0,0,0.6);
+      background: rgba(0, 0, 0, 0.6);
       padding: 30px;
       border-radius: 15px;
       width: 320px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
       text-align: center;
     }
+
     #display {
       width: 100%;
-      font-size: 18px;
-      padding: 10px;
+      font-size: 24px;
+      padding: 12px;
       margin-bottom: 20px;
       border-radius: 10px;
       text-align: right;
       border: none;
+      background-color: #34495e;
+      color: white;
+      opacity: 1;
     }
+
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
     }
+
     button {
       padding: 15px;
-      font-size: 16px;
+      font-size: 18px;
       border: none;
       border-radius: 10px;
       background: #1abc9c;
@@ -46,15 +53,25 @@
       cursor: pointer;
       transition: 0.2s;
     }
+
     button:hover {
       background: #16a085;
+    }
+
+    .clear-btn {
+      background: white;
+      color: black;
+    }
+
+    .clear-btn:hover {
+      background: #ccc;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h2>Halo, <span id="userDisplay">User</span> 👋</h2>
-    <input type="text" id="display" disabled>
+    <input type="text" id="display" readonly>
     <div class="buttons">
       <button onclick="append('7')">7</button>
       <button onclick="append('8')">8</button>
@@ -76,7 +93,8 @@
       <button onclick="calculate()">=</button>
       <button onclick="append('+')">+</button>
 
-      <button onclick="clearDisplay()" style="grid-column: span 4; background:#white">Clear</button>
+      <button onclick="backspace()">⌫</button>
+      <button class="clear-btn" onclick="clearDisplay()" style="grid-column: span 3;">Clear</button>
     </div>
   </div>
 
@@ -91,19 +109,26 @@
     }
 
     function append(val) {
-      document.getElementById("display").value += val;
+      const display = document.getElementById("display");
+      display.value += val;
     }
 
     function clearDisplay() {
       document.getElementById("display").value = '';
     }
 
+    function backspace() {
+      const display = document.getElementById("display");
+      display.value = display.value.slice(0, -1);
+    }
+
     function calculate() {
+      const display = document.getElementById("display");
       try {
-        const result = eval(document.getElementById("display").value);
-        document.getElementById("display").value = result;
+        // Sederhana, aman jika hanya input dari tombol
+        display.value = Function('"use strict";return (' + display.value + ')')();
       } catch {
-        document.getElementById("display").value = "Error";
+        display.value = "Error";
       }
     }
   </script>
